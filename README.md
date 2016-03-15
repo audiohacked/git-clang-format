@@ -7,13 +7,17 @@ These achievements are due to clang-format, the backend for formatting of source
 ## How to use
 The sequel assumes that you followed the installation steps bellow
 
-- Apply formatting to a repository  
+- Apply formatting to staged files  
   Being in the git repository of one of your projects,
 
   ```shell
   git clang-format
-```
+  ```
+- Apply formatting to complete repository
 
+  ```shell
+  git clang-format --commit `git hash-object -t tree /dev/null`
+  ```
 - Commit files
   Nothing special to do! Unless you make modifications that do not match the formatting convention and don't use either the above or an extension in your editor. Then, you could not anymore make commit until you call `git clang-format`.
 
