@@ -1,6 +1,6 @@
 # clang-format based C++ formatting tools
 
-This repository helps us have keep our C++ source files have a uniform look on all our repositories. You might find this usefull too.
+This repository helps us keep our C++ source files in a uniform look on all our repositories. You might find this usefull too.
 
 These achievements are due to clang-format, the backend for formatting of source code, based on Clang. We merely put files together in a git repository and wrote this README.
 
@@ -35,17 +35,17 @@ For Bash or Zsh:
 export PATH=$PATH:/PATH/TO/format_code/
 ```
 
-> **Note:** git-clang-format is released by LLVM. The latest version can be found at their [GitHub repository](https://github.com/llvm-mirror/clang/tree/master/tools/clang-format). It is licensed under the is distributed under the University of Illinois Open Source License
+> **Note:** git-clang-format is released by LLVM. The latest version can be found at their [GitHub repository](https://github.com/llvm-mirror/clang/tree/master/tools/clang-format). It is distributed under the _University of Illinois Open Source License_.
 
 ### Telling git how to find clang-format
-If need to append the version number to clang-format, you'll also need to set a configuration entry in git. For instance, if you have clang-format 3.7:
+If you cannot run clang-fromat without specifying the version number, you'll also need to set a configuration entry in git. For instance, if you have clang-format 3.7:
 
 ```shell
 git config --global clangFormat.binary clang-format-3.7
 ```
 
 ### Add the formatting convetion file (in EACH respository)
-For our project, we use the `.clang-format` formatting convention present in this repository. To use it, create a symbolic link:
+In our team we use the `.clang-format` convention in this repository. To use it, create a symbolic link:
 
 ```shell
 ln -s /PATH/TO/format_code/.clang-format /PATH/TO/YOUR/GIT/REPOSITORY/.clang-format
