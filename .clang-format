@@ -48,7 +48,7 @@ IndentWidth:     4
 TabWidth:        4
 UseTab:          Never
 BreakBeforeBraces: Stroustrup
-# SortIncludes: false
+SortIncludes: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 SpacesInAngles:  false
