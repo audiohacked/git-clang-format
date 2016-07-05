@@ -18,13 +18,11 @@ The sequel assumes that you followed the installation steps bellow
   ```shell
   git clang-format --commit `git hash-object -t tree /dev/null`
   ```
-- Commit files
-  Nothing special to do! Unless you make modifications that do not match the formatting convention and don't use either the above or an extension in your editor. Then, you could not anymore make commit until you call `git clang-format`.
 
 ## Installing
-The pre-requisite is to have clang-format installed. On ubuntu, you can install the package `clang-format-x.y` where `x.y` is the version of clang-format. At the time of writing (March 2016), the latest version is 3.7.
+The pre-requisite is to have clang-format installed. On ubuntu 16.04, you can install the package `clang-format`. At the time of writing (June 2016) the latest version is 3.8, on Ubuntu 16.04.
 
-Check now that you can run `clang-format`. If it is not available with this name, try appending the verion number.
+Check now that you can run `clang-format`. If it is not available with this name, try appending the verion number, for instance `clang-format-3.7`.
 
 ### Integrate clang-format in git
 In your shell's configuration file, add the current repository to the path.
@@ -44,15 +42,16 @@ If you cannot run clang-fromat without specifying the version number, you'll als
 git config --global clangFormat.binary clang-format-3.7
 ```
 
-### Add the formatting convetion file (in EACH respository)
-In our team we use the `.clang-format` convention in this repository. To use it, create a symbolic link:
+### Add the formatting convetion file
+In our team we use the `.clang-format` convention in this repository. To have git-clang-format use it, we need to setup git config parameters:
 
 ```shell
-ln -s /PATH/TO/format_code/.clang-format /PATH/TO/YOUR/GIT/REPOSITORY/.clang-format
+git config --global clangFormat.style file
+git config --global --path clangFormat.stylePath /PATH/TO/format_code
 ```
 
 ### Pre-commit hook (in EACH respository)
-One might by mistake commit files that do not comply by the formatting convention. We can avoid this with a git hook, that is provided in this repository. To install, proceed as follow:
+One might, by mistake, commit files that do not comply with the formatting convention. We can avoid this with a git hook, provided in this repository. To install, proceed as follow:
 
 - give execution rights to the file  
   ```shell
@@ -64,7 +63,7 @@ One might by mistake commit files that do not comply by the formatting conventio
   ln -s /PATH/TO/format_code/pre-commit /PATH/TO/YOUR/GIT/REPOSITORY/.git/hooks/
   ```
 
-## Integrate clang-format with your favorite editor
+### Integrate with your favorite editor (optional)
 To spare you the need to manually run the formatter script, you can use a plugin for your favorite source code editor:
 
 - for Atom, install the plugin [clang-format](https://github.com/LiquidHelium/atom-clang-format)
@@ -75,13 +74,12 @@ For more information on clang-format, please have a look at
 
 - [Introduction to the clang tools](http://clang.llvm.org/docs/ClangTools.html)
 - [Documentation on the program clang-format](http://clang.llvm.org/docs/ClangFormat.html)
-
-You could also appreciate [clang format configurator](http://zed0.co.uk/clang-format-configurator/), that lets you see the effet of many clang-format's options.
+- [clang format configurator](http://zed0.co.uk/clang-format-configurator/), that lets you see the effet of many clang-format's options.
 
 ## Contributing
 Contributions for improvement or bug resolution are welcome, in the form of github issues or pull requests.
 
-If you want, you can write a script to setup a git repository for clang-format, based on the above installation procedure.
+If you want, you can write a script to install the git hook on several git repositories, based on the above installation procedure.
 
 ## License
 The software contained in the present repository is licensed under the (GNU GPL-compatible) CeCILL license. A copy can be found in `LICENSE`. `git-clang-format` is an exception, it is licensed under the the University of Illinois Open Source License, available in `LICENSE-clang-format`.
