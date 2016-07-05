@@ -84,7 +84,7 @@ Contributions for improvement or bug resolution are welcome, in the form of gith
 If you want, you can write a script to setup a git repository for clang-format, based on the above installation procedure.
 
 ## License
-The software contained in the present repository is licensed under the (GNU GPL-compatible) CeCILL license. A copy can be found in `LICENSE`. `git-clang-format` is an exception, it is licensed under the the University of Illinois Open Source License, available in `LICENSE-clang-format`.
+The software contained in the present repository is licensed under the (GNU GPL-compatible) CeCILL license, see `LICENSE`. `git-clang-format` is an exception, it is licensed under the the University of Illinois Open Source License, available in `LICENSE-Illinois.TXT`.
 
 ## Authors
 
