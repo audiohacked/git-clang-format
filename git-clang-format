@@ -154,7 +154,7 @@ def main():
   if opts.style_path:
     to_delete = copy_format_file(opts.style_path)
     if opts.verbose >= 1:
-      if already_exists:
+      if not to_delete:
         print ('There is already a clang-format style file:\n    ignoring the'
                'style path %s' % opts.style_path)
 
