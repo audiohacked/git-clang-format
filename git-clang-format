@@ -44,6 +44,7 @@ The following git-config settings set the default of the corresponding option:
   clangFormat.commit
   clangFormat.extension
   clangFormat.style
+  clangFormat.stylePath
 '''
 
 # Name of the temporary index file in which save the output of clang-format.
@@ -109,6 +110,9 @@ def main():
   p.add_argument('--style',
                  default=config.get('clangformat.style', None),
                  help='passed to clang-format'),
+  p.add_argument('--style_path',
+                 default=config.get('clangformat.stylepath', None),
+                 help='path to the folder containing the .clang_format to use')
   p.add_argument('-v', '--verbose', action='count', default=0,
                  help='print extra information')
   # We gather all the remaining positional arguments into 'args' since we need
@@ -144,10 +148,22 @@ def main():
   # The computed diff outputs absolute paths, so we must cd before accessing
   # those files.
   cd_to_toplevel()
+
+  # If told to, temporarily retrieve a .clang-format style file
+  to_delete = False
+  if opts.style_path:
+    to_delete = copy_format_file(opts.style_path)
+    if opts.verbose >= 1:
+      if not to_delete:
+        print ('There is already a clang-format style file:\n    ignoring the'
+               'style path %s' % opts.style_path)
+
   old_tree = create_tree_from_workdir(changed_lines)
   new_tree = run_clang_format_and_save_to_tree(changed_lines,
                                                binary=opts.binary,
                                                style=opts.style)
+  remove_format_file(to_delete)
+
   if opts.verbose >= 1:
     print 'old tree:', old_tree
     print 'new tree:', new_tree
@@ -315,6 +331,23 @@ def cd_to_toplevel():
   toplevel = run('git', 'rev-parse', '--show-toplevel')
   os.chdir(toplevel)
 
+def copy_format_file(format_folder):
+  """Copy the the custom format file to the current working directory.
+
+  The copy is only made if there is not already a .clang-format file in the
+  current directory.
+
+  Returns False when .clang-format already existed in the current directory"""
+
+  if not os.path.isfile(".clang-format"):
+    source_path = os.path.join(format_folder, ".clang-format")
+    if os.path.isfile(source_path):
+      subprocess.call(["cp", "-n", source_path, "."])
+      return True
+    else:
+      die('%s does not exist' % source_path)
+  else:
+    return False
 
 def create_tree_from_workdir(filenames):
   """Create a new git tree with the given files from the working directory.
@@ -418,6 +451,10 @@ def create_temporary_index(tree=None):
   run('git', 'read-tree', '--index-output='+path, tree)
   return path
 
+def remove_format_file(to_delete):
+  """Remove the clang format file, if it was first copied"""
+  if to_delete:
+    subprocess.call(["rm", ".clang-format"])
 
 def print_diff(old_tree, new_tree):
   """Print the diff between the two trees to stdout."""
