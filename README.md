@@ -24,6 +24,8 @@ The pre-requisite is to have clang-format installed. On ubuntu 16.04, you can in
 
 Check now that you can run `clang-format`. If it is not available with this name, try appending the verion number, for instance `clang-format-3.7`.
 
+> **Important:** if you have version higher or equal to 3.9, you will need to uncomment `SortIncludes: false` in the `.clang-format` file. Otherwise, the formatting will be inconsistant with other members of the team.
+
 ### Integrate clang-format in git
 In your shell's configuration file, add the current repository to the path.
 
