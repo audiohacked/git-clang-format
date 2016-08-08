@@ -68,7 +68,7 @@ One might, by mistake, commit files that do not comply with the formatting conve
 ### Integrate with your favorite editor (optional)
 To spare you the need to manually run the formatter script, you can use a plugin for your favorite source code editor:
 
-- for Atom, install the plugin [clang-format](https://github.com/LiquidHelium/atom-clang-format)
+- for Atom, install the plugin [clang-format](https://github.com/LiquidHelium/atom-clang-format) and copy the content of `clang-format-atom` in the plugin's configuration
 - for Vim, Emacs, BBedit, Visual Studio, see the bottom of [this](http://clang.llvm.org/docs/ClangFormat.html) page
 
 ## More on clang-format
